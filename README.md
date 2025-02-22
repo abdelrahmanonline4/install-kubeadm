@@ -3,7 +3,7 @@
 ## Step 1: Update System and Install Required Packages
 ```bash
 sudo apt update
-sudo apt install apt-transport-https ca-certificates curl gnupg2 software-properties-common -y
+sudo apt install -y apt-transport-https ca-certificates curl gnupg2 software-properties-common
 ```
 
 ## Step 2: Add CRI-O Repository
@@ -14,14 +14,18 @@ export CRIO_VERSION=1.24
 
 ### Add the CRI-O Kubic repository
 ```bash
-echo "deb https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/$OS/ /" | sudo tee /etc/apt/sources.list.d/devel:kubic:libcontainers:stable.list
-echo "deb http://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable:/cri-o:/$CRIO_VERSION/$OS/ /" | sudo tee /etc/apt/sources.list.d/devel:kubic:libcontainers:stable:cri-o:$CRIO_VERSION.list
+echo "deb https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/$OS/ /" | \
+    sudo tee /etc/apt/sources.list.d/devel:kubic:libcontainers:stable.list
+echo "deb http://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable:/cri-o:/$CRIO_VERSION/$OS/ /" | \
+    sudo tee /etc/apt/sources.list.d/devel:kubic:libcontainers:stable:cri-o:$CRIO_VERSION.list
 ```
 
 ### Import the GPG key for the CRI-O repository
 ```bash
-curl -L https://download.opensuse.org/repositories/devel:kubic:libcontainers:stable:cri-o:$CRIO_VERSION/$OS/Release.key | sudo apt-key add -
-curl -L https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/$OS/Release.key | sudo apt-key add -
+curl -L https://download.opensuse.org/repositories/devel:kubic:libcontainers:stable:cri-o:$CRIO_VERSION/$OS/Release.key | \
+    sudo apt-key add -
+curl -L https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/$OS/Release.key | \
+    sudo apt-key add -
 ```
 
 ### Update package lists
@@ -31,12 +35,12 @@ sudo apt update
 
 ## Step 3: Install CRI-O
 ```bash
-sudo apt install cri-o cri-o-runc -y
+sudo apt install -y cri-o cri-o-runc
 ```
 
 ## Step 4: Install CNI Plugins for CRI-O
 ```bash
-sudo apt install containernetworking-plugins -y
+sudo apt install -y containernetworking-plugins
 ```
 
 ## Step 5: Configure CRI-O
@@ -91,8 +95,10 @@ sudo sed -i '/swap/s/^/#/' /etc/fstab
 ```bash
 sudo apt-get install -y apt-transport-https ca-certificates curl gpg
 sudo mkdir -p -m 755 /etc/apt/keyrings
-curl -fsSL https://pkgs.k8s.io/core:/stable:/v1.32/deb/Release.key | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
-echo 'deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v1.32/deb/ /' | sudo tee /etc/apt/sources.list.d/kubernetes.list
+curl -fsSL https://pkgs.k8s.io/core:/stable:/v1.32/deb/Release.key | \
+    sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
+echo 'deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v1.32/deb/ /' | \
+    sudo tee /etc/apt/sources.list.d/kubernetes.list
 sudo apt-get update
 ```
 
@@ -138,6 +144,7 @@ On the master node, check node status:
 ```bash
 kubectl get nodes -o wide
 ```
+
 
 
 ![image](https://github.com/user-attachments/assets/687e37e7-1b59-4b99-a46f-103b2f784c0e)
