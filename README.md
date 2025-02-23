@@ -53,14 +53,32 @@ sudo vi /etc/crio/crio.conf
 Ensure the following settings are included:
 ```ini
 [crio]
+# CRI-O reads its storage defaults from the containers/storage configuration file, /etc/containers/storage.conf
+# Modify storage.conf if you want to change default storage for all tools that use containers/storage
+
+# The "crio.runtime" table contains settings pertaining to the OCI runtime used and options for how to set up and manage the OCI runtime.
+[crio.runtime]
+
+# Path to the "root directory". CRI-O stores all of its data, including containers images, in this directory.
 root = "/var/lib/crio"
 
+# A necessary file for CRI-O to operate is the crio.conf file, which is typically located in /etc/crio.
+# It is mandatory for this file to exist.
+
+# The CRI-O container engine uses OCI runtime technology to provide a real Linux container runtime environment.
 [crio.network]
+
+# network_dir is where CRI-O will look for network configuration files
 network_dir = "/etc/cni/net.d/"
+
+# plugin_dirs is a list of directories where CNI plugin binaries are located
 plugin_dirs = [
     "/usr/lib/cni",
     "/opt/cni/bin"
 ]
+
+# Additional CRI-O settings can be set and customized according to your specific needs.
+
 ```
 Restart CRI-O:
 ```bash
