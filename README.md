@@ -1,7 +1,9 @@
 # CRI-O and Kubernetes Installation Guide on Ubuntu 22.04
 
+
 ## Step 1: Update System and Install Required Packages
 ```bash
+sudo -i
 sudo apt update
 sudo apt install -y apt-transport-https ca-certificates curl gnupg2 software-properties-common
 ```
