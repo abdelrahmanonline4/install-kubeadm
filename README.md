@@ -154,6 +154,9 @@ sudo chown $(id -u):$(id -g) $HOME/.kube/config
 ### Install a CNI (Calico)
 ```bash
 kubectl apply -f https://raw.githubusercontent.com/projectcalico/calico/v3.25.0/manifests/calico.yaml
+kubectl apply -f https://raw.githubusercontent.com/rancher/local-path-provisioner/master/deploy/local-path-storage.yaml
+kubectl patch storageclass local-path \
+-p '{"metadata":{"annotations":{"storageclass.kubernetes.io/is-default-class":"true"}}}'
 ```
 
 ## Step 9: Join Worker Nodes
